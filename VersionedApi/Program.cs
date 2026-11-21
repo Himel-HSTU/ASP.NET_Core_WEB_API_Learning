@@ -41,6 +41,15 @@ builder.Services.AddSwaggerGen(options =>
         License = license,
         Contact = contact
     });
+    options.SwaggerDoc("v3", new OpenApiInfo
+    {
+        Version = "v3",
+        Title = $"{title} v3.0",
+        Description = description,
+        TermsOfService = termsOfService,
+        License = license,
+        Contact = contact
+    });
 } );
 
 
@@ -72,6 +81,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(options =>
     {
+        options.SwaggerEndpoint("/swagger/v3/swagger.json", "Version 3.0");
         options.SwaggerEndpoint("/swagger/v2/swagger.json", "Version 2.0");
         options.SwaggerEndpoint("/swagger/v1/swagger.json", "Version 1.0");
         

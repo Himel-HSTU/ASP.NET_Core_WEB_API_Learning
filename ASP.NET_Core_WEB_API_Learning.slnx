@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="DemoWeb/DemoWeb.csproj" Id="1fa9aba5-f778-4629-8a90-053e08a8b250" />
+  <Project Path="GettingStartedWebAPI_TimCorey/GettingStartedWebAPI.csproj" />
+  <Project Path="VersionedApi/VersionedApi.csproj" Id="5cd96b1e-7f8e-4324-8a29-2c28a775e500" />
+</Solution>

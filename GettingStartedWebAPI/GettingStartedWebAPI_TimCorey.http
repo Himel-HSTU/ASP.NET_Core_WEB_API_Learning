@@ -1,0 +1,6 @@
+@GettingStartedWebAPI_TimCorey_HostAddress = http://localhost:5263
+
+GET {{GettingStartedWebAPI_TimCorey_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

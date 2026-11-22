@@ -7,7 +7,8 @@ namespace VersionedApi.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    [ApiVersion("2.0")]
+    [ApiVersion("2.0", Deprecated = true)] //  api-deprecated-versions: 2.0 , api-supported-versions: 1.0,3.0 only for this Values Controller not the whole API Version, indicating users to avoid using this version
+    [ApiVersion("3.0")]
     public class ValuesController : ControllerBase
     {
         // GET: api/<ValuesController>
@@ -24,6 +25,13 @@ namespace VersionedApi.Controllers.v1
         public IEnumerable<string> Getv2()
         {
             return new string[] { "value1", "value2","From Version 2.0" };
+        }
+
+        [HttpGet]
+        [MapToApiVersion("3.0")]
+        public IEnumerable<string> Getv3()
+        {
+            return new string[] { "value1", "value2", "From Version 3.0" };
         }
 
         //We can have multiple versions of the same controller, but we need to specify which version each action belongs to using the [MapToApiVersion] attribute.

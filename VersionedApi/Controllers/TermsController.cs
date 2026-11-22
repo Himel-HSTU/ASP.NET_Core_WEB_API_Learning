@@ -11,7 +11,7 @@ namespace VersionedApi.Controllers
         [HttpGet]
         public IActionResult GetTerms()
         {
-            var terms = "These are the terms of service for our API. By using this API, you agree to comply with these terms.";
+            var terms = $"These are the terms of service for our API. By using this API, you agree to comply with these terms.";
             return Ok(terms);
         }
     }

@@ -11,11 +11,15 @@ namespace MonitoringApi.HealthChecks
             // In a real-world scenario, we would perform actual checks here, such as checking database connectivity, external service availability, etc.
             if (responseTimeInMs<100)
             {
-                return Task.FromResult(HealthCheckResult.Healthy($"Response time is {responseTimeInMs} ms."));
+                return Task.FromResult(HealthCheckResult.Healthy($"Response time is {responseTimeInMs} ms.- Excellent"));
+            }
+            else if (responseTimeInMs < 200)
+            {
+                return Task.FromResult(HealthCheckResult.Degraded($"Response time is {responseTimeInMs} ms.- Average"));
             }
             else
             {
-                return Task.FromResult(HealthCheckResult.Unhealthy($"Response time is {responseTimeInMs} ms."));
+                return Task.FromResult(HealthCheckResult.Unhealthy($"Response time is {responseTimeInMs} ms.- Poor"));
             }
         }
     }

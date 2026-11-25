@@ -1,6 +1,7 @@
 using MonitoringApi.HealthChecks;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using HealthChecks.UI.Client;
+using WatchDog;
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -17,6 +18,8 @@ builder.Services.AddHealthChecks()
 // In this way when we have multiple health checks, we can add them with different names to identify which one is failing or degraded.
 // Otherwise this will take the worst case and show only that.
 // Example : If we have 3 health checks and 2 of them are healthy and 1 is degraded, then the overall health check will be degraded. But if we add them with different names, then we can see which one is degraded and which one is healthy.
+
+builder.Services.AddWatchDogServices();
 
 builder.Services.AddHealthChecksUI(opt =>
 {
@@ -53,9 +56,22 @@ app.MapHealthChecks("/health", new HealthCheckOptions
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
 app.MapHealthChecksUI();
+app.UseWatchDog(opts =>
+{
+    opts.WatchPageUsername = app.Configuration.GetValue<string>("WatchDog:UserName");
+    opts.WatchPagePassword = app.Configuration.GetValue<string>("WatchDog:Password");
+    opts.Blacklist = "health";
+});
 app.Run();
 
 
 // Xabaril HealthChecks: A collection of ready-made health checks for databases, Redis, external APIs, etc.
 // Useful for monitoring application dependencies, dashboards, notifications, and production health monitoring.
 // https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
+
+// WatchDog: Monitors and records application activity, HTTP requests, responses, and exceptions.
+// Useful for investigating production issues through a web-based logging dashboard.
+// https://github.com/IzyPro/WatchDog
+
+// Xabaril HealthChecks: Checks the health of API and its dependencies, helping detect issues when something goes wrong with api.
+// WatchDog: Works like CCTV for my application, recording user requests and application activity for future debugging when users face issues. Example: If a user reports an issue, I can check the Get,Post,Delete blah blah logs to see what happened and fix it.

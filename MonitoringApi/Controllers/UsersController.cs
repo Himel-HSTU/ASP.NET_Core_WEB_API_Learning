@@ -18,7 +18,8 @@ public class UsersController : ControllerBase
     public IActionResult Get()
     {
         _logger.LogInformation("api\\users Called : Get All Users");
-        return Ok(new string[] { "user1", "user2" });
+        throw new Exception("Something went wrong");
+        //return Ok(new string[] { "user1", "user2" });
     }
 
     // GET api/<UsersController>/5
